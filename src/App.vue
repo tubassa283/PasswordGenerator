@@ -117,7 +117,11 @@ export default {
         alert("チェックボックスを選択してください。");
         return;
       }
-
+      if (this.passwordLength < 6){
+        alert("6文字以上の値を指定して下さい");
+        return;
+      }
+      
       const chars = [];
       if (this.includeUppercase) chars.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
       if (this.includeLowercase) chars.push("abcdefghijklmnopqrstuvwxyz");

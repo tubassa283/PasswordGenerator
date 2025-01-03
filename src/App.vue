@@ -10,14 +10,14 @@
         :class="{ active: currentTab === 'generate' }"
         @click="currentTab = 'generate'"
       >
-        生成
+        Generate
       </button>
       <button
         class="tab"
         :class="{ active: currentTab === 'check' }"
         @click="currentTab = 'check'"
       >
-        診断
+        Check
       </button>
     </div>
 
@@ -65,7 +65,7 @@
           type="number"
           v-model="numberOfPasswords"
           :min="1"
-          :max="10"
+          :max="100"
           :inputId="'number-of-passwords'"
         />
         <button @click="generatePassword" class="btn btn-primary">
@@ -113,15 +113,25 @@ export default {
   methods: {
     generatePassword() {
       // 入力のバリデーション
-      if (!this.includeUppercase && !this.includeLowercase && !this.includeNumbers && !this.includeSymbols) {
-        alert("チェックボックスを選択してください。");
-        return;
-      }
+      //文字数について
       if (this.passwordLength < 6){
         alert("6文字以上の値を指定して下さい");
         return;
       }
-      
+      else if (this.passwordLength > 32){
+        alert("32文字以下で指定して下さい。");
+        return;
+      }
+      //チェックボックスについて
+      if (!this.includeUppercase && !this.includeLowercase && !this.includeNumbers && !this.includeSymbols) {
+        alert("チェックボックスを選択して下さい。");
+        return;
+      }
+      //パスワード生成の数について
+      if (this.numberOfPasswords > 100) {
+        alert("100以下で指定して下さい。");
+        return;
+      }       
       const chars = [];
       if (this.includeUppercase) chars.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
       if (this.includeLowercase) chars.push("abcdefghijklmnopqrstuvwxyz");
